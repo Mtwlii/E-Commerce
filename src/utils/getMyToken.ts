@@ -7,7 +7,7 @@ export async function getMyToken() {
   const tokenFromCookies = myCookies.get("next-auth.session-token")?.value;
 
   if (tokenFromCookies == null) {
-    return new Error("Login First")
+    return undefined;
   }
   //   console.log("tokenFromCookies", tokenFromCookies);
 

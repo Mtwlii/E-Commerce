@@ -46,7 +46,14 @@ export default function CheckoutPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<CheckoutFormData>({
-    defaultValues: { paymentMethod: "cash" },
+    defaultValues: {
+      details: "",
+      city: "",
+      street: "",
+      phone: "",
+      postaCode: "",
+      paymentMethod: "cash",
+    },
   });
 
   const subtotal = cartProduct.reduce(
@@ -57,6 +64,11 @@ export default function CheckoutPage() {
   const router = useRouter();
 
   async function onSubmit(data: CheckoutFormData) {
+    if (!cartId) {
+      toast.error("Unable to process payment: missing cart ID.");
+      return;
+    }
+
     const payload = {
       shippingAddress: {
         details: data.details,
@@ -139,7 +151,7 @@ export default function CheckoutPage() {
               <div className="p-5">
                 {/* Info Banner */}
                 <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 flex items-start gap-3 mb-5">
-                  <div className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">
+                  <div className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0 mt-0.5">
                     i
                   </div>
                   <div>
@@ -334,7 +346,7 @@ export default function CheckoutPage() {
                         onClick={() => field.onChange("cash")}
                         className={`flex items-center gap-4 border rounded-xl px-4 py-3.5 cursor-pointer transition-all ${field.value === "cash" ? "border-green-500 bg-green-50" : "border-gray-200"}`}
                       >
-                        <div className="bg-green-100 text-green-600 w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="bg-green-100 text-green-600 w-9 h-9 rounded-lg flex items-center justify-center shrink-0">
                           <FaMoneyBill />
                         </div>
                         <div className="flex-1">
@@ -346,7 +358,7 @@ export default function CheckoutPage() {
                           </p>
                         </div>
                         <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${field.value === "cash" ? "border-green-500 bg-green-500" : "border-gray-300"}`}
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${field.value === "cash" ? "border-green-500 bg-green-500" : "border-gray-300"}`}
                         >
                           {field.value === "cash" && (
                             <div className="w-2 h-2 bg-white rounded-full" />
@@ -359,7 +371,7 @@ export default function CheckoutPage() {
                         onClick={() => field.onChange("online")}
                         className={`flex items-center gap-4 border rounded-xl px-4 py-3.5 cursor-pointer transition-all ${field.value === "online" ? "border-green-500 bg-green-50" : "border-gray-200"}`}
                       >
-                        <div className="bg-gray-100 text-gray-600 w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="bg-gray-100 text-gray-600 w-9 h-9 rounded-lg flex items-center justify-center shrink-0">
                           <FaCreditCard />
                         </div>
                         <div className="flex-1">
@@ -382,7 +394,7 @@ export default function CheckoutPage() {
                           </div>
                         </div>
                         <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${field.value === "online" ? "border-green-500 bg-green-500" : "border-gray-300"}`}
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${field.value === "online" ? "border-green-500 bg-green-500" : "border-gray-300"}`}
                         >
                           {field.value === "online" && (
                             <div className="w-2 h-2 bg-white rounded-full" />

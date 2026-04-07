@@ -28,24 +28,37 @@ export async function addProducdToCart(id: string): Promise<CartResponsType> {
 
 
 export async function getUserCart(): Promise<CartResponsType> {
-
-
     const token = await getMyToken()
+
+    if (!token || typeof token !== "string") {
+        return {
+            cartId: "",
+            message: "No auth token",
+            status: "error",
+            numOfCartItems: 0,
+            data: {
+                cartOwner: "",
+                createdAt: "",
+                products: [],
+                totalCartPrice: 0,
+                updatedAt: "",
+                __v: 0,
+                _id: "",
+                message: "No auth token",
+                numOfCartItems: 0,
+                status: "error",
+            },
+        }
+    }
 
     const res = await fetch(`https://ecommerce.routemisr.com/api/v2/cart`, {
         method: "GET",
 
         headers: {
-            // "Content-Type": "application/json",
-
-            token: token as string
-        }
-
-
-
+            token: token as string,
+        },
     })
     const finalRespons = await res.json()
-    // console.log("final ResponsFrom Card Action", finalRespons)
     return finalRespons
 }
 

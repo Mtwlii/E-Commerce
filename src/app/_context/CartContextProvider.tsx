@@ -45,7 +45,9 @@ export const CartContextProvider = ({
   // },[])
 
   //   const [cartData, setcartData] = useState(userCart.data)
-  const [cartId, setCartId] = useState(userCart.cartId);
+  const [cartId, setCartId] = useState(
+    userCart.cartId ?? userCart.data?._id ?? "",
+  );
 
   const [noumberOfCartItems, setnoumberOfCartItems] = useState(
     userCart.numOfCartItems ?? 0,

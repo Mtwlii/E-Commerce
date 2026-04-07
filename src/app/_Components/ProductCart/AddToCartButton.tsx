@@ -9,7 +9,7 @@ import { CartContext } from "@/app/_context/CartContextProvider";
 
 export default function AddToCartButton({ productId }: { productId: string }) {
   const sessionAddToCart = useSession();
-  const { setnoumberOfCartItems, setCartProduct, settotalPriceOfCart } =
+  const { setnoumberOfCartItems, setCartProduct, settotalPriceOfCart, setCartId } =
     useContext(CartContext);
 
   async function handelAddToCart() {
@@ -20,6 +20,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
       setnoumberOfCartItems(res.numOfCartItems);
       setCartProduct(res.data.products)
       settotalPriceOfCart(res.data.totalCartPrice)
+      setCartId(res.cartId ?? res.data?._id ?? "");
 
       console.log(res);
     } else toast.error(res.message);

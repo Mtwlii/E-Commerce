@@ -16,6 +16,7 @@ import {
   updateUserCart,
 } from "../_Components/ProductCart/card.actions";
 import { toast } from "sonner";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function CartPage() {
@@ -26,6 +27,7 @@ export default function CartPage() {
     setCartProduct,
     settotalPriceOfCart,
     setnoumberOfCartItems,
+    setCartId,
   } = useContext(CartContext);
 
   const [confirmId, setConfirmId] = useState<number | null>(null);
@@ -39,10 +41,10 @@ export default function CartPage() {
       ? noumberOfCartItems
       : products.length;
 
-  async function handeUpdateProduct(id: string, count: number) {
+  async function handleUpdateProduct(id: string, count: number) {
     const res = await updateUserCart(id, count);
-    //   console.log(res)
     if (res.status == "success") {
+      setCartId(res.cartId ?? res.data?._id ?? "");
       setCartProduct(res.data.products);
       settotalPriceOfCart(res.data.totalCartPrice);
       setnoumberOfCartItems(res.numOfCartItems);
@@ -52,17 +54,18 @@ export default function CartPage() {
     }
   }
 
-  async function handeDeleteProduct(id: string) {
+  async function handleDeleteProduct(id: string) {
     const res = await deleletItemFromCart(id);
-    // console.log(res)
+    setCartId(res.cartId ?? res.data?._id ?? "");
     setCartProduct(res.data.products);
     settotalPriceOfCart(res.data.totalCartPrice);
     setnoumberOfCartItems(res.numOfCartItems);
     toast.success(res.message);
   }
-  async function handeClearCart(id: string) {
+
+  async function handleClearCart() {
     const res = await clearUserCart();
-    // console.log(res)
+    setCartId(res.cartId ?? res.data?._id ?? "");
     setCartProduct(res.data.products);
     settotalPriceOfCart(res.data.totalCartPrice);
     setnoumberOfCartItems(res.numOfCartItems);
@@ -113,9 +116,11 @@ export default function CartPage() {
                 >
                   {/* Image */}
                   <div className="bg-gray-50 rounded-lg h-24 flex items-center justify-center relative">
-                    <img
+                    <Image
                       src={p.imageCover}
                       alt={p.title}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 object-contain"
                     />
                     <span className="absolute bottom-1 left-1/2 -translate-x-1/2 bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded-full flex items-center gap-1 whitespace-nowrap">
@@ -149,7 +154,7 @@ export default function CartPage() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() =>
-                            handeUpdateProduct(item.product.id, item.count - 1)
+                            handleUpdateProduct(item.product.id.toString(), item.count - 1)
                           }
                           type="button"
                           className="w-7 h-7 border border-gray-200 rounded-md flex items-center justify-center text-gray-600 hover:bg-gray-50"
@@ -161,7 +166,7 @@ export default function CartPage() {
                         </span>
                         <button
                           onClick={() =>
-                            handeUpdateProduct(item.product.id, item.count + 1)
+                            handleUpdateProduct(item.product.id.toString(), item.count + 1)
                           }
                           type="button"
                           className="w-7 h-7 bg-green-600 text-white rounded-md flex items-center justify-center hover:bg-green-700"
@@ -188,7 +193,7 @@ export default function CartPage() {
                           <span className="text-xs text-gray-500">Sure?</span>
                           <button
                             onClick={() => {
-                              handeDeleteProduct(item.product.id);
+                              handleDeleteProduct(item.product.id.toString());
                               setConfirmId(null);
                             }}
                             className="text-xs bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
@@ -206,6 +211,7 @@ export default function CartPage() {
                         <button
                           onClick={() => setConfirmId(item.product.id)}
                           type="button"
+                          aria-label="Delete item"
                           className="w-8 h-8 bg-red-50 border border-red-200 text-red-500 rounded-lg flex items-center justify-center hover:bg-red-100"
                         >
                           <FaTrash className="text-xs" />
@@ -229,9 +235,10 @@ export default function CartPage() {
                 <span className="text-xs text-gray-500">Sure?</span>
                 <button
                   onClick={() => {
-                    handeClearCart();
+                    handleClearCart();
                     setConfirmClear(false);
                   }}
+                  type="button"
                   className="text-xs bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
                 >
                   Yes
@@ -268,7 +275,7 @@ export default function CartPage() {
 
           {/* Free Shipping */}
           <div className="mx-4 mt-4 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-3">
-            <div className="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center shrink-0">
               <FaTruck className="text-sm" />
             </div>
             <div>

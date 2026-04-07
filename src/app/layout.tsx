@@ -4,9 +4,9 @@ import "./globals.css";
 import Navbar from "./_Components/Navbar/Navbar";
 import TopBar from "./_Components/TopBar/TopBar";
 import Footer from "./_Components/Footer/Footer";
-import ShopByCategory from "./_Components/ShopByCategory/ShopByCategory";
 import { Toaster } from "sonner";
-import { SessionProvider } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { nextAuthConfig } from "@/lib/nextauth.config";
 import MySessionProvidr from "./_providers/MySessionProvidr";
 import { CartContextProvider } from "./_context/CartContextProvider";
 import { getUserCart } from "./_Components/ProductCart/card.actions";
@@ -34,13 +34,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userCart = await getUserCart();
+  const session = await getServerSession(nextAuthConfig);
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* <SessionProvider> */}
-        <MySessionProvidr>
+        <MySessionProvidr session={session}>
           <CartContextProvider userCart={userCart}>
             <TopBar />
             <Navbar />
@@ -50,7 +51,6 @@ export default async function RootLayout({
             <Footer />
           </CartContextProvider>
         </MySessionProvidr>
-        {/* </SessionProvider>  */}
       </body>
     </html>
   );

@@ -2,7 +2,7 @@ import { ProductType } from "./Product.interface"
 
 export interface CartResponsType {
 
-    cartId: string,
+    cartId?: string,
     message: string,
     status: string,
     numOfCartItems: number,
