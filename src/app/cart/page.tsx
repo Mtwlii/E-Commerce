@@ -28,7 +28,7 @@ export default function CartPage() {
     setnoumberOfCartItems,
   } = useContext(CartContext);
 
-  const [confirmId, setConfirmId] = useState<number | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null); // ← string
 
   const [confirmClear, setConfirmClear] = useState(false);
 
@@ -40,8 +40,8 @@ export default function CartPage() {
       : products.length;
 
   async function handeUpdateProduct(id: string, count: number) {
+    // ← string
     const res = await updateUserCart(id, count);
-    //   console.log(res)
     if (res.status == "success") {
       setCartProduct(res.data.products);
       settotalPriceOfCart(res.data.totalCartPrice);
@@ -53,16 +53,16 @@ export default function CartPage() {
   }
 
   async function handeDeleteProduct(id: string) {
+    // ← string
     const res = await deleletItemFromCart(id);
-    // console.log(res)
     setCartProduct(res.data.products);
     settotalPriceOfCart(res.data.totalCartPrice);
     setnoumberOfCartItems(res.numOfCartItems);
     toast.success(res.message);
   }
-  async function handeClearCart(id: string) {
+
+  async function handeClearCart() {
     const res = await clearUserCart();
-    // console.log(res)
     setCartProduct(res.data.products);
     settotalPriceOfCart(res.data.totalCartPrice);
     setnoumberOfCartItems(res.numOfCartItems);
@@ -71,12 +71,10 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      {/* Breadcrumb */}
       <p className="text-sm text-gray-400 mb-4">
-        Home / <span className="text-gray-700 font-medium ">Shopping Cart</span>
+        Home / <span className="text-gray-700 font-medium">Shopping Cart</span>
       </p>
 
-      {/* Title */}
       <div className="flex items-center gap-3 mb-1">
         <div className="bg-green-600 text-white w-10 h-10 rounded-xl flex items-center justify-center text-lg">
           <FaShoppingCart />
@@ -90,7 +88,6 @@ export default function CartPage() {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-5 items-start">
-        {/* Cart Items */}
         <div className="flex flex-col gap-4">
           {products.length === 0 ? (
             <div className="bg-white border border-gray-100 rounded-xl p-8 text-center text-gray-500">
@@ -111,7 +108,6 @@ export default function CartPage() {
                   key={`${p.id}-${item.price}`}
                   className="bg-white border border-gray-100 rounded-xl p-4 grid grid-cols-[80px_1fr] gap-4"
                 >
-                  {/* Image */}
                   <div className="bg-gray-50 rounded-lg h-24 flex items-center justify-center relative">
                     <img
                       src={p.imageCover}
@@ -123,7 +119,6 @@ export default function CartPage() {
                     </span>
                   </div>
 
-                  {/* Info */}
                   <div>
                     <h3 className="text-sm font-medium text-gray-800 mb-1">
                       {p.title}
@@ -143,13 +138,14 @@ export default function CartPage() {
                       </span>
                     </p>
 
-                    {/* Bottom row */}
                     <div className="flex items-center justify-between mt-3">
-                      {/* Qty */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() =>
-                            handeUpdateProduct(item.product.id, item.count - 1)
+                            handeUpdateProduct(
+                              String(p.id), // ← String()
+                              item.count - 1,
+                            )
                           }
                           type="button"
                           className="w-7 h-7 border border-gray-200 rounded-md flex items-center justify-center text-gray-600 hover:bg-gray-50"
@@ -161,7 +157,10 @@ export default function CartPage() {
                         </span>
                         <button
                           onClick={() =>
-                            handeUpdateProduct(item.product.id, item.count + 1)
+                            handeUpdateProduct(
+                              String(p.id), // ← String()
+                              item.count + 1,
+                            )
                           }
                           type="button"
                           className="w-7 h-7 bg-green-600 text-white rounded-md flex items-center justify-center hover:bg-green-700"
@@ -170,7 +169,6 @@ export default function CartPage() {
                         </button>
                       </div>
 
-                      {/* Total */}
                       <div className="text-right">
                         <p className="text-[11px] text-gray-400">Total</p>
                         <p className="text-lg font-medium text-gray-800">
@@ -181,14 +179,12 @@ export default function CartPage() {
                         </p>
                       </div>
 
-                      {/* Delete */}
-                      {confirmId === item.product.id ? (
-                        // Confirmation
+                      {confirmId === String(p.id) ? ( // ← String()
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-gray-500">Sure?</span>
                           <button
                             onClick={() => {
-                              handeDeleteProduct(item.product.id);
+                              handeDeleteProduct(String(p.id)); // ← String()
                               setConfirmId(null);
                             }}
                             className="text-xs bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
@@ -204,8 +200,9 @@ export default function CartPage() {
                         </div>
                       ) : (
                         <button
-                          onClick={() => setConfirmId(item.product.id)}
+                          onClick={() => setConfirmId(String(p.id))} // ← String()
                           type="button"
+                          aria-label="Remove item"
                           className="w-8 h-8 bg-red-50 border border-red-200 text-red-500 rounded-lg flex items-center justify-center hover:bg-red-100"
                         >
                           <FaTrash className="text-xs" />
@@ -218,7 +215,7 @@ export default function CartPage() {
             })
           )}
 
-          <div className="flex justify-between px-5 ">
+          <div className="flex justify-between px-5">
             <div className="pb-4">
               <Link href="/" className="text-sm text-green-600 hover:underline">
                 ← Continue Shopping
@@ -254,9 +251,7 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* Order Summary */}
         <div className="bg-white border border-gray-100 rounded-xl overflow-hidden sticky top-20">
-          {/* Header */}
           <div className="bg-green-600 px-5 py-4">
             <h2 className="text-white font-medium flex items-center gap-2">
               <FaLock className="text-sm" /> Order Summary
@@ -266,7 +261,6 @@ export default function CartPage() {
             </p>
           </div>
 
-          {/* Free Shipping */}
           <div className="mx-4 mt-4 bg-green-50 border border-green-100 rounded-xl p-3 flex items-center gap-3">
             <div className="bg-green-100 text-green-600 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
               <FaTruck className="text-sm" />
@@ -284,7 +278,6 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* Rows */}
           <div className="px-4 mt-4 border-t border-gray-100">
             <div className="flex justify-between py-3 border-b border-dashed border-gray-100">
               <span className="text-sm text-gray-400">Subtotal</span>
@@ -302,7 +295,6 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* Total */}
           <div className="flex justify-between items-baseline px-4 py-3 border-t border-gray-100">
             <span className="text-base font-medium text-gray-800">Total</span>
             <span className="text-xl font-medium text-gray-800">
@@ -311,22 +303,18 @@ export default function CartPage() {
             </span>
           </div>
 
-          {/* Promo */}
           <div className="mx-4 mb-3 border border-gray-200 rounded-xl px-4 py-2.5 flex items-center gap-2 cursor-pointer hover:bg-gray-50">
             <FaTag className="text-gray-400 text-sm" />
             <span className="text-sm text-gray-400">Apply Promo Code</span>
           </div>
 
-          {/* Checkout */}
           <Link
             href={"/checkout"}
-            type="button"
             className="mx-4 mb-3 w-[calc(100%-32px)] bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
           >
             <FaLock className="text-xs" /> Secure Checkout
           </Link>
 
-          {/* Trust */}
           <div className="flex items-center justify-center gap-4 px-4 pb-3 text-xs text-gray-400">
             <span className="flex items-center gap-1">
               <FaLock className="text-[10px]" /> Secure Payment
@@ -337,7 +325,6 @@ export default function CartPage() {
             </span>
           </div>
 
-          {/* Continue */}
           <div className="flex justify-center pb-4">
             <Link href="/" className="text-sm text-green-600 hover:underline">
               ← Continue Shopping
