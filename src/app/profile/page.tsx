@@ -7,8 +7,7 @@ export default function MyAddressesPage() {
       {/* Breadcrumb + Header */}
       <div className="bg-green-50 px-8 py-7">
         <p className="text-xs text-gray-400 mb-3">
-          Home /{" "}
-          <span className="text-gray-700 font-medium">My Account</span>
+          Home / <span className="text-gray-700 font-medium">My Account</span>
         </p>
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-full bg-green-600 flex items-center justify-center">
