@@ -83,7 +83,12 @@ export default async function Page({ params }: { params: { id: string } }) {
                 className={
                   "w-full bg-green-600 hover:bg-green-700 cursor-pointer text-white flex items-center justify-center gap-2 py-1 rounded-lg"
                 }
-                label={"add to cart"}
+                label={
+                  <>
+                    <RiShoppingCart2Fill />
+                    Add to Cart
+                  </>
+                }
               />
             </div>
 
