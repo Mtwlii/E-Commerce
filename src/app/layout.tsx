@@ -11,6 +11,7 @@ import MySessionProvidr from "./_providers/MySessionProvidr";
 import { CartContextProvider } from "./_context/CartContextProvider";
 import { getUserCart } from "./_Components/ProductCart/card.actions";
 import { Features } from "./_Components/Features/Features";
+import { getAllCategories } from "@/services/Categories";
 
 
 const geistSans = Geist({
@@ -34,6 +35,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userCart = await getUserCart();
+  const categories = (await getAllCategories()) ?? [];
   return (
     <html lang="en">
       <body
@@ -43,7 +45,7 @@ export default async function RootLayout({
         <MySessionProvidr>
           <CartContextProvider userCart={userCart}>
             <TopBar />
-            <Navbar />
+            <Navbar categories={categories} />
             <Toaster position="top-center" richColors />
             {children}
             <Features />

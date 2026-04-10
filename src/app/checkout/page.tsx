@@ -18,7 +18,10 @@ import {
 import { useRouter } from "next/navigation";
 import { FaClipboardList } from "react-icons/fa6";
 import { CartContext } from "../_context/CartContextProvider";
-import { CreateCashOrder, CreateOnlineOrder } from "../_Components/ProductCart/card.actions";
+import {
+  CreateCashOrder,
+  CreateOnlineOrder,
+} from "../_Components/ProductCart/card.actions";
 import { toast } from "sonner";
 
 type CheckoutFormData = {
@@ -75,10 +78,11 @@ export default function CheckoutPage() {
     if (res.status == "success") {
       toast.success(res.message);
       if (data.paymentMethod === "online") {
-        const redirectUrl = res?.session?.url ?? res?.session?.redirectUrl ?? res?.url;
+        const redirectUrl =
+          res?.session?.url ?? res?.session?.redirectUrl ?? res?.url;
         if (redirectUrl) {
           window.location.href = redirectUrl;
-           return;
+          return;
         }
       }
 

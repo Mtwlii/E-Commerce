@@ -1,3 +1,4 @@
+import AddToCartButton from "@/app/_Components/ProductCart/AddToCartButton";
 import { Button } from "@/components/ui/button";
 import { getSingleProduct } from "@/services/product.api";
 import {
@@ -10,6 +11,7 @@ import {
 import { MdElectricBolt } from "react-icons/md";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { TbPointFilled } from "react-icons/tb";
+import { toast } from "sonner";
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -74,10 +76,17 @@ export default async function Page({ params }: { params: { id: string } }) {
           )}
           <p className="text-sm text-gray-500">{product?.description}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center justify-between mt-4">
-            <Button className="w-full bg-green-600 hover:bg-green-700 cursor-pointer">
-              <RiShoppingCart2Fill />
-              Add to Cart
-            </Button>
+            <div>
+              {" "}
+              <AddToCartButton
+                productId={String(product?.id)}
+                className={
+                  "w-full bg-green-600 hover:bg-green-700 cursor-pointer text-white flex items-center justify-center gap-2 py-1 rounded-lg"
+                }
+                label={"add to cart"}
+              />
+            </div>
+
             <Button className="w-full hover:bg-gray-800 cursor-pointer">
               <MdElectricBolt />
               Buy Now

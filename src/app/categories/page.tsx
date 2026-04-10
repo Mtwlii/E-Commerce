@@ -3,7 +3,7 @@ import React from 'react'
 export default function page() {
   return (
     <>
-      category
+      <div className="h-screen">categories</div>
     </>
   )
 }

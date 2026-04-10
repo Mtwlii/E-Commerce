@@ -24,7 +24,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { CartContext } from "@/app/_context/CartContextProvider";
-export default function Navbar() {
+import CategoriesMenu from "./CategoriesMenu";
+import { CategoryType } from "@/interfaces/Product.interface";
+export default function Navbar({ categories }: { categories: CategoryType[] }) {
   const { data: session } = useSession();
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -33,10 +35,9 @@ export default function Navbar() {
   }
 
   const { noumberOfCartItems } = React.useContext(CartContext);
-  
+
   const cartItemCount =
-    typeof noumberOfCartItems === "number" &&
-    !Number.isNaN(noumberOfCartItems)
+    typeof noumberOfCartItems === "number" && !Number.isNaN(noumberOfCartItems)
       ? noumberOfCartItems
       : 0;
 
@@ -85,22 +86,7 @@ export default function Navbar() {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="w-96">
-                <ListItem href="/docs" title="Introduction">
-                  Re-usable components built with Tailwind CSS.
-                </ListItem>
-                <ListItem href="/docs/installation" title="Installation">
-                  How to install dependencies and structure your app.
-                </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Typography">
-                  Styles for headings, paragraphs, lists...etc
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <CategoriesMenu categories={categories} />
 
           <NavigationMenuItem>
             <NavigationMenuLink
