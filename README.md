@@ -8,11 +8,21 @@ A fully responsive e-commerce web application built with **Next.js 15** and **Ty
 
 ## 📸 Screenshots
 
-> _Add screenshots here by dragging images into this section on GitHub_
 
-| Home Page | Shop Page | Product Details |
-|-----------|-----------|-----------------|
-| ![Home]() | ![Shop]() | ![Product]() |
+### 🏠 Home Page
+![Home Page](https://github.com/user-attachments/assets/b4f243c7-ec66-429b-80a6-bbf570177ff1)
+
+### 🛍️ Shop Page
+![Shop Page](https://github.com/user-attachments/assets/135908d8-d5b7-4fdb-8bbe-1920b638260d)
+
+### 📦 Product Details
+![Product Details](https://github.com/user-attachments/assets/8f2fe6dc-9b95-4f52-82e2-874301221b56)
+
+### 🗂️ Categories
+![Categories](https://github.com/user-attachments/assets/1a7908b3-f6e8-4c89-9c90-f0d27f7a66d3)
+
+### 🛒 Full Page View
+![Full Page](https://github.com/user-attachments/assets/5dd11288-bb18-425a-b1e3-1d0ff2ec3854)
 
 ---
 
