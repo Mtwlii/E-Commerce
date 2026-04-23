@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 FreshCart — E-Commerce Web Application
 
-## Getting Started
+A fully responsive e-commerce web application built with **Next.js 15** and **TypeScript**, featuring product browsing, cart management, wishlist, authentication, and more.
 
-First, run the development server:
+🔗 **Live Demo:** [e-commerce-jet-phi.vercel.app](https://e-commerce-jet-phi.vercel.app)
+
+---
+
+## 📸 Screenshots
+
+> _Add screenshots here by dragging images into this section on GitHub_
+
+| Home Page | Shop Page | Product Details |
+|-----------|-----------|-----------------|
+| ![Home]() | ![Shop]() | ![Product]() |
+
+---
+
+## ✨ Features
+
+- 🔐 **Authentication** — Sign up, login, and logout with protected routes
+- 🛍️ **Product Browsing** — Browse products by category and brand
+- 🔍 **Search & Filter** — Quickly find products
+- 🛒 **Shopping Cart** — Add, remove, and update product quantities
+- ❤️ **Wishlist** — Save favorite products for later
+- 📦 **Order Management** — View order history
+- 💳 **Checkout Flow** — Smooth and user-friendly checkout experience
+- 📱 **Fully Responsive** — Works seamlessly on mobile, tablet, and desktop
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| **Next.js 15** | React framework with App Router & SSR |
+| **TypeScript** | Type-safe JavaScript |
+| **Tailwind CSS** | Utility-first styling |
+| **shadcn/ui** | Accessible UI components |
+| **REST API** | Product & user data via Route Academy API |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm or yarn
+
+### Installation
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/Mtwlii/E-Commerce.git
+
+# 2. Navigate to the project
+cd E-Commerce
+
+# 3. Install dependencies
+npm install
+
+# 4. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+src/
+├── app/              # App Router pages & layouts
+├── components/       # Reusable UI components
+├── lib/              # Utility functions & API calls
+└── types/            # TypeScript type definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deployed on **Vercel** with automatic CI/CD on every push to the main branch.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👨‍💻 Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Metwally Mohamed**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mtwlii/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Mtwlii)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
